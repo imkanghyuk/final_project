@@ -2,10 +2,14 @@ package com.example.demo.controller;
 
 import java.security.Principal;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +24,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import springfox.documentation.annotations.ApiIgnore;
 
+@Validated // 스프링 검증 활성화 (자바 표준 검증 > 스프링 검증 변환 자바보다 기능이 더 높음) 
 @RestController // REST 응답에만 반응(처리) 하는 컨트롤러 @Controller의 부분 집합
 public class BoardController {
 	
@@ -37,7 +42,7 @@ public class BoardController {
 		@ApiResponse(code = 200, response=String.class,message="글을 읽을 주소"),
 		@ApiResponse(code=409, response=String.class,message="오류 메세지")
 	})
-	public ResponseEntity<String> write(BoardDto.Write dto, @ApiIgnore Principal principal){
+	public ResponseEntity<String> write(@Valid BoardDto.Write dto, BindingResult bindingResult, @ApiIgnore Principal principal){
 		Board board = service.write(dto, "spring");//principal.getName());
 		return ResponseEntity.ok("/board/read?bno="+board.getBno());
 	}

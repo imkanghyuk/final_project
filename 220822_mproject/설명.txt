@@ -82,7 +82,7 @@
   		}
   		
 
-6. 요청과 응답 객체
+6. 요청과 응답 객체(REST, MVC = ModelAndView로 작성하여 html 만들어 구성)
 - 요청, 응답 객체는 header와 body로 구성된다
 	header는 편지 봉투, body는 편지라고 생각하면 된다
 - 요청 객체 
