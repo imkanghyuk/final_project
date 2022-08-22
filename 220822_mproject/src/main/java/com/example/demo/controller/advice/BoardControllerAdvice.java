@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class ControllerAdvice {
+public class BoardControllerAdvice { // BoardController의 bindingresult 처리를 위한 핸들러
 	
 	@ExceptionHandler(ConstraintViolationException.class) // 핸들러 어노테이션 ConstraintViolationException = 에러코드 500
 	public ResponseEntity<String> constraintViolationException(){
