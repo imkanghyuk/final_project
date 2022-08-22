@@ -44,7 +44,7 @@ public class BoardController {
 	})
 	public ResponseEntity<String> write(@Valid BoardDto.Write dto, BindingResult bindingResult, @ApiIgnore Principal principal){
 		Board board = service.write(dto, "spring");//principal.getName());
-		return ResponseEntity.ok("/board/read?bno="+board.getBno());
+		return ResponseEntity.ok("/board/read?bno="+ board.getBno());
 	}
 }
  

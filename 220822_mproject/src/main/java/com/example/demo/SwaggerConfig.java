@@ -17,5 +17,6 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("ZProject API Document").description("ZProject REST API 설명").version("1.0").build();
+        // title : 메인화면 이름   // description : 하단 내용 설명
     }
 }
