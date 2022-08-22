@@ -39,8 +39,8 @@ public class BoardController {
 		@ApiImplicitParam(name = "content", value = "내용", required = true, dataTypeClass = String.class)
 	})
 	@ApiResponses({
-		@ApiResponse(code = 200, response=String.class,message="글을 읽을 주소"),
-		@ApiResponse(code=409, response=String.class,message="오류 메세지")
+		@ApiResponse(code=200, response=String.class, message="글을 읽을 주소"),
+		@ApiResponse(code=409, response=String.class, message="오류 메세지") // 현재 오류 처리 내용
 	})
 	public ResponseEntity<String> write(@Valid BoardDto.Write dto, BindingResult bindingResult, @ApiIgnore Principal principal){
 		Board board = service.write(dto, "spring");//principal.getName());
