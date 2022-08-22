@@ -11,3 +11,18 @@
 		sql에 < 문서가 포함된 경우
 			<![CDATA[~~~]]>
 			&lt;로 처리할 수도 있다.
+			
+2. 스프링 빈의 이름
+- a) com.example.demo.controller.BoardController
+- b) com.example.demo.controller.rest.BoardController
+	a, b는 에러 발생
+	@Component를 사용했을 때 객체의 이름은 첫글자를 소문자로 바꾼 것이다
+		
+		@Component
+		class BoardController{
+		~~~~
+		}
+		
+		위 객체의 이름은 boardController가 된다
+		
+		패키지가 다르더라도 같은 이름을 사용할 경우 2개의 boardController가 되기 때문에 오류
