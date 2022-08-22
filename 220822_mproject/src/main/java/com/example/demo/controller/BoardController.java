@@ -31,7 +31,7 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 	
-	//@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()") // 권한에 관계없이 로그인 사용자 이용
 	@PostMapping(value = "/board/new", produces = MediaType.TEXT_PLAIN_VALUE )
 	@Operation(summary = "5. 글작성", description = "제목과 내용을 입력해 글을 작성")
 	@ApiImplicitParams({

@@ -29,6 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// mvc 로그인 활성화(자동설정)
 		http.formLogin();
 		http.authorizeHttpRequests().antMatchers("/v3/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll();
+		// authorizeHttpRequests() : 요청에 대한 권한 지정
+		// antMatchers() : 특정 경로 지정
+		// permitAll() : 어떠한 사용자도 접근 가능
 		http.logout().logoutUrl("/logout").logoutSuccessUrl("/");
 	}
 }
