@@ -36,14 +36,11 @@ public class BoardDto {
 	
 	@Data
 	@Schema(description = "글 목록과 페이징 정보를 제공하는 DTO")
-	public static class Page {
-		@Schema(description = "페이지 번호", example="1")
-		private Integer pageno;
-		@Schema(description = "페이지 크기", example="10")
-		private Integer pagesize;
-		@Schema(description = "글 개수", example="123")
-		private Integer totalcount;
-		@Schema(description = "글 목록", example="ForList 객체 배열")
+	@AllArgsConstructor
+	public static class Page {		
+		private Integer pageno;		
+		private Integer pagesize;	
+		private Integer totalcount;		
 		private Collection<ForList> boardList;
 	}
 	

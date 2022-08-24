@@ -1,19 +1,27 @@
 package com.example.demo.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.BoardDao;
-import com.example.demo.dao.CommentDao;
 import com.example.demo.dto.BoardDto;
+import com.example.demo.dto.BoardDto.Page;
 import com.example.demo.entity.Board;
 import com.example.demo.exception.BoardNotFoundException;
+import com.example.demo.exception.JobFailException;
 
 @Service
 public class BoardService {
 
 	@Autowired
 	BoardDao boarddao;
+	
+	@Value("${mproject.pagesize")
+	private Integer pagesize;
 	
 	// 글쓰기 : 실패하면 409
 	public Board write(BoardDto.Write dto, String loginId) {
@@ -38,8 +46,35 @@ public class BoardService {
 	}
 	
 	// 글목록 : 글이 없으면 빈 목록
+	public BoardDto.Page list(Integer pageno, String writer){
+		Integer totalcount = boarddao.count(writer);
+		Integer start = (pageno-1) * pagesize + 1;
+		Integer end = start * pagesize - 1;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("writer", writer);
+		
+		return new Page(pageno, pagesize, totalcount, boarddao.findAll(map));
+	}
 	
 	// 글변경 : 실패 - 글이 없다(BoardNotFoundException), 글쓴이가 아니다(JonFailException).
+	public void update(BoardDto.Update dto, String loginId) {
+		// 글쓴이를 비교해야 한다
+		String writer = boarddao.findWriterById(dto.getBno()).orElseThrow(()-> new BoardNotFoundException() );
+		if(writer.equals(loginId)==false) {
+			throw new JobFailException("변경 권한이 없습니다");
+		}
+		boarddao.update(dto.toEntity());
+	}
 	
 	// 글삭제 : 실패 - 글이 없다(BNFE), 글쓴이가 아니다(JFE).
+	public void delete(Integer bno, String loginId) {
+		String writer = boarddao.findWriterById(bno).orElseThrow(()-> new BoardNotFoundException() );
+		if(writer.equals(loginId)==false) {
+			throw new JobFailException("변경 권한이 없습니다");
+		}
+		boarddao.deleteById(bno);
+	}
 }
