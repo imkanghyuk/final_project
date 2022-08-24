@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,7 +47,13 @@ public class BoardDaoTest {
 	
 	//@Test
 	public void findAllTest() {
-		assertEquals(1, dao.findAll(null, 1, 10).size());
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", 1);
+		map.put("end", 11);
+		map.put("writer", null);
+		
+		assertEquals(1, dao.findAll(map).size());
 	}
 	// TEST 케이스 4 : findall :글이 없다 11 ~ 14까지 4개를 읽어오자
 	
@@ -58,7 +67,7 @@ public class BoardDaoTest {
 	}
 	// TEST 케이스 5 : 제목 내용 조회수 좋아요 싫어요 변경 가능, 해당 
 	
-	@Test
+	//@Test
 	public void findByidTest() {
 		assertEquals(true, dao.findById(1).isPresent());
 		assertEquals(true, dao.findById(2).isEmpty());
