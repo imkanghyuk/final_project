@@ -18,6 +18,7 @@ public class BoardDto {
 	
 	@Data
 	@Schema(description = "글 목록 DTO")
+	//@Schema : 정보 작성 (description : 한글명)
 	public static class ForList {
 		@Schema(description = "글번호", example="123")
 		private Integer bno;
