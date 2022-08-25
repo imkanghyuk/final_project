@@ -45,6 +45,7 @@ public class BoardDto {
 	}
 	
 	@Data
+	@ToString
 	@Schema(description = "글 출력 DTO")
 	public static class Read {
 		@Schema(description = "글번호", example="123")
@@ -90,6 +91,7 @@ public class BoardDto {
 		private String title;
 		@NotEmpty(message="내용은 필수입력입니다")
 		private String content;
+		
 		public Board toEntity() {
 			return Board.builder().title(title).content(content).bno(bno).build();
 		}

@@ -20,7 +20,7 @@ public class BoardService {
 	@Autowired
 	BoardDao boarddao;
 	
-	@Value("${mproject.pagesize")
+	@Value("${mproject.pagesize}")
 	private Integer pagesize;
 	
 	// 글쓰기 : 실패하면 409
@@ -37,6 +37,7 @@ public class BoardService {
 		
 		if(loginId != null && dto.getWriter().equals(loginId)==false) {
 			boarddao.update(Board.builder().bno(bno).readCnt(1).build()); // 업데이트시 readCnt 값이 null이 아니면 증가되기 때문에 값을 아무거나 줌
+			
 			dto.setReadCnt(dto.getReadCnt()+1); // 다음에 값을 불러올때 1이 증가되기 때문에 인위적으로 상승시키기 위함 
 		}
 		
